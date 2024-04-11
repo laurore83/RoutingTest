@@ -1,0 +1,91 @@
+<form #myForm="ngForm" (ngSubmit)="onSubmit()">
+  <!-- Message d'erreurs du formulaire global -->
+  <div>
+    Form submitted ? {{ myForm.submitted }} Form valid ? {{ myForm.valid }} Form
+    invalid ? {{ myForm.invalid }}
+  </div>
+
+  <fieldset>
+    <label for="title-order">Title</label>
+    <input
+      id="title-order"
+      name="title-order"
+      type="text"
+      [(ngModel)]="newOrder.title"
+      #title="ngModel"
+      required
+      minlength="5"
+    />
+    <!-- Message d'erreurs de l'input title -->
+    <div *ngIf="myForm.submitted && title.errors">
+      <span *ngIf="title.errors?.['required']">Le titre est requis</span>
+      <span *ngIf="title.errors?.['minlength']"
+        >La longueur minimale doit être supérieure à 5</span
+      >
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <label for="quantity-order">Quantité</label>
+    <input
+      id="quantity-order"
+      name="quantity-order"
+      [(ngModel)]="newOrder.quantity"
+      #quantity="ngModel"
+      type="number"
+      required
+    />
+
+    <!-- Message d'erreurs de quantity -->
+    <div *ngIf="myForm.submitted && quantity.errors">
+      <span *ngIf="quantity.errors?.['required']"
+        >Le champ quantité est requis</span
+      >
+      <span *ngIf="quantity.errors?.['min']"
+        >La quantité doit être supérieure à 0</span
+      >
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <label for="date-order">Date de commande</label>
+    <input
+      id="date-order"
+      name="date-order"
+      type="date"
+      [(ngModel)]="newOrder.orderDate"
+      #date="ngModel"
+      required
+    />
+    <!-- Message d'erreurs de date -->
+    <div *ngIf="myForm.submitted && date.errors">
+      <span *ngIf="date.errors?.['required']">Le champ date est requis</span>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <label for="contact-order">Contact</label>
+    <input
+      id="contact-order"
+      name="contact-order"
+      type="email"
+      [(ngModel)]="newOrder.email"
+      #contact="ngModel"
+      required
+      email
+    />
+
+    <!-- Message d'erreurs de contact -->
+    <div *ngIf="myForm.submitted && contact.errors">
+      <span *ngIf="contact.errors?.['required']"
+        >Le champ email est requis</span
+      >
+      <span *ngIf="contact.errors?.['email']"
+        >L'adresse email doit être valide</span
+      >
+    </div>
+  </fieldset>
+
+  <button type="reset">Restaurer</button>
+  <button type="submit">Sauvegarder</button>
+</form>
